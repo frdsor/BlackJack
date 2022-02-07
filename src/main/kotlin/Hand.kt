@@ -13,9 +13,9 @@ class Hand(val name: String) {
         }
     }
 
-    fun getScore(): Int{
+    fun getScore(): Int {
         var score = 0
-        for(card in hand){
+        for (card in hand) {
             score += card.getCardValue()
         }
         return score

@@ -7,6 +7,8 @@ import java.util.*
 
 object Deck {
     @JvmStatic
+    //Read and parse input file to Card
+    //Returns arraylist of Cards
     fun createDeckFromFile(file: File): ArrayList<Card> {
         val deck = ArrayList<Card>()
         try {
@@ -21,36 +23,26 @@ object Deck {
             }
             scanner.close()
         } catch (e: FileNotFoundException) {
-            println("Could not parse input-file. $e")
-        } catch (e: NullPointerException) {
-            println("Could not parse input-file. $e")
+            throw FileNotFoundException("Could not find input-file. $e")
         }
         return deck
     }
 
+    //Splits input to suit and value strings
     private fun parseInput(card: String): Array<String>? {
         return if (card.isNotEmpty()) arrayOf(card.substring(0, 1), card.substring(1)) else null
     }
 
-    fun newShuffledDeck(): ArrayList<Card>{
-            val deck = ArrayList<Card>()
-            for (suit in Suit.values()) {
-                for (value in Card.Value.values()) {
-                    deck.add(Card(value, suit))
-                }
+    //Returns a shuffled arraylist with 52 cards
+    fun newShuffledDeck(): ArrayList<Card> {
+        val deck = ArrayList<Card>()
+        for (suit in Suit.values()) {
+            for (value in Card.Value.values()) {
+                deck.add(Card(value, suit))
             }
-            deck.shuffle()
-            return deck
         }
-
-    private fun parseSuit(suit: String?): String {
-        return when (suit) {
-            "D" -> "DIAMONDS"
-            "H" -> "HEARTS"
-            "C" -> "CLUBS"
-            "S" -> "SPADES"
-            else -> throw EnumConstantNotPresentException(Suit::class.java, suit)
-        }
+        deck.shuffle()
+        return deck
     }
 
     private fun parseValue(value: String?): String {
@@ -69,6 +61,16 @@ object Deck {
             "3" -> "THREE"
             "2" -> "TWO"
             else -> throw EnumConstantNotPresentException(Card.Value::class.java, value)
+        }
+    }
+
+    private fun parseSuit(suit: String?): String {
+        return when (suit) {
+            "D" -> "DIAMONDS"
+            "H" -> "HEARTS"
+            "C" -> "CLUBS"
+            "S" -> "SPADES"
+            else -> throw EnumConstantNotPresentException(Suit::class.java, suit)
         }
     }
 }
