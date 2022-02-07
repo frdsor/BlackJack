@@ -16,13 +16,13 @@ If no file is provided it will create a shuffeld deck containing 52 cards
 
 ..
 
-## How to compile from command line:
+**How to compile from command line:**
 
 ```
 kotlinc Casino.kt BlackJack.kt Card.kt Deck.kt Hand.kt -include-runtime -d Casino.jar
 ```
 
-##How to run from command line:
+**How to run from command line:**
 
 ```
 java -jar Casino.jar
